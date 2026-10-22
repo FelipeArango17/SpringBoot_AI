@@ -1,0 +1,35 @@
+.reservation-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.reservation-table th,
+.reservation-table td {
+  padding: 0.7rem 0.9rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+.reservation-table th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b7280;
+}
+.reservation-table tr.cancelled td { color: #9ca3af; }
+.table-empty { color: #6b7280; text-align: center; padding: 1.5rem 0; }
+.badge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.badge-active { background: #dcfce7; color: #166534; }
+.badge-cancelled { background: #f3f4f6; color: #6b7280; }
+.btn-cancel {
+  background: #fff;
+  color: #d64545;
+  border: 1px solid #d64545;
+  border-radius: 6px;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+}
+.btn-cancel:hover { background: #d64545; color: #fff; }

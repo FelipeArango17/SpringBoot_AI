@@ -1,0 +1,56 @@
+---
+description: Buenas prácticas de Java / Spring Boot y estructura del proyecto para el servicio de reservas
+globs:
+alwaysApply: true
+---
+
+# Reglas del servicio Spring Boot
+
+## Idioma y estilo
+- Los nombres de clases, métodos, atributos y variables DEBEN estar en inglés.
+- Todo método público DEBE tener su Javadoc actualizado (`@param`, `@return` y `@throws` cuando apliquen).
+- El Javadoc, el JSDoc y los comentarios del código se escriben en ESPAÑOL (los identificadores siguen en inglés). El README también va en español.
+- Los mensajes de error de la API se escriben en español.
+- Los DTO se definen como `record` de Java; nunca se exponen entidades JPA directamente desde los controladores.
+- Se apunta a Java 21+ (el curso pide Java 25): preferir records, `var` cuando el tipo es obvio, expresiones `switch`,
+  pattern matching, `Stream.toList()` y text blocks; evitar tipos crudos y retornar `null` (usar `Optional`).
+
+## Convenciones de Spring
+- Capas: `controller` -> `service` -> `repository`. Los controladores solo traducen HTTP; las reglas de negocio viven en los servicios.
+- Solo inyección por constructor (sin `@Autowired` en campos). Beans inmutables (`private final`).
+- Las violaciones de reglas lanzan excepciones propias, que `GlobalExceptionHandler` traduce a HTTP.
+- Devolver códigos HTTP adecuados: 200 (consulta), 201 (creación), 204 (cancelación), 400 (datos inválidos), 404 (no existe), 409 (regla de negocio violada).
+- Las operaciones de escritura en los servicios llevan `@Transactional`.
+- Las credenciales salen de `backend/.env` a través de `application.properties`; nunca se escriben secretos en el código.
+- Documentar los endpoints con anotaciones de springdoc (`@Tag`, `@Operation`).
+
+## Frontend (React + TypeScript)
+- Las llamadas al backend se hacen únicamente desde `src/services/ReservationService.ts` (Axios); la URL sale de `VITE_API_URL`.
+- Cada componente se compone de `Componente.tsx` + `Componente.css`.
+- El servidor de desarrollo corre en el puerto 3000 (lo exige el filtro CORS del backend).
+
+## Estructura actual del proyecto
+```
+SpringBoot_AI/
+├── .cursor/rules/springboot.mdc
+├── backend/                      # Spring Boot 4, Maven, Java 21
+│   ├── .env / .env.example       # DB_URL, DB_USERNAME, DB_PASSWORD
+│   ├── pom.xml
+│   └── src/main/java/co/edu/tdea/reservation/
+│       ├── ReservationApplication.java
+│       ├── config/CorsConfig.java
+│       ├── controller/ReservationController.java
+│       ├── dto/{ReservationRequest, ReservationResponse, ErrorResponse}.java
+│       ├── entity/{Reservation, ReservationStatus}.java
+│       ├── exception/{BusinessException, InvalidReservationException, ReservationNotFoundException, GlobalExceptionHandler}.java
+│       ├── repository/ReservationRepository.java
+│       └── service/ReservationService.java
+└── frontend/                     # React 19 + TypeScript + Vite
+    ├── .env / .env.example       # VITE_API_URL
+    └── src/
+        ├── App.tsx / App.css
+        ├── components/{ReservationForm, ReservationTable, Toast}.tsx + .css
+        ├── services/ReservationService.ts
+        └── types/reservation.ts
+```
+Mantener esta sección actualizada cada vez que se agreguen archivos o paquetes.

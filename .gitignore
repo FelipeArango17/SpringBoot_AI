@@ -1,0 +1,10 @@
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+
+# Secrets (templates named .env.example are committed)
+.env
