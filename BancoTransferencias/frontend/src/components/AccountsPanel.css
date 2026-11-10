@@ -1,0 +1,9 @@
+.panel-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.panel-head h2 { margin: 0; }
+.new-account { display: grid; gap: 8px; margin: 10px 0 14px; padding: 12px; background: #f6f9fc; border-radius: 10px; }
+.accounts { list-style: none; margin: 0; padding: 0; }
+.accounts li { display: flex; justify-content: space-between; align-items: center; padding: 12px 4px; border-bottom: 1px solid var(--border); }
+.accounts li:last-child { border-bottom: 0; }
+.accounts li div { display: flex; flex-direction: column; }
+.accounts li span { font-size: .8rem; color: #6b7280; font-family: ui-monospace, monospace; }
+.accounts .empty { color: #6b7280; justify-content: center; }

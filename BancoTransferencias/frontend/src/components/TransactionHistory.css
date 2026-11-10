@@ -1,0 +1,13 @@
+.history-head { flex-wrap: wrap; display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+.history-head h2 { margin: 0; }
+.history-head select { width: 260px; max-width: 100%; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+th { text-align: left; background: #f3f6fa; padding: 10px; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; color: #4b5563; }
+td { padding: 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.empty { text-align: center; color: #6b7280; padding: 24px; }
+.badge { padding: 3px 10px; border-radius: 999px; font-size: .78rem; font-weight: 600; }
+.badge-completed { background: #dcfce7; color: var(--ok); }
+.badge-rejected { background: #fee2e2; color: var(--bad); }
+.btn.small { padding: 5px 10px; font-size: .8rem; }

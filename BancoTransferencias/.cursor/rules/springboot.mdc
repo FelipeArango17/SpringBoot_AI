@@ -1,0 +1,58 @@
+---
+description: Buenas prácticas de Java / Spring Boot y estructura del proyecto BancoTransferencias
+globs:
+alwaysApply: true
+---
+
+# Reglas del servicio Spring Boot — BancoTransferencias
+
+## Idioma y estilo
+- Los nombres de clases, métodos, atributos y variables DEBEN estar en inglés.
+- Todo método público DEBE tener su Javadoc actualizado (`@param`, `@return` y `@throws` cuando apliquen).
+- Javadoc, JSDoc y comentarios se escriben en ESPAÑOL; los identificadores siguen en inglés. El README también va en español.
+- Los mensajes de error para el usuario se escriben en español. Las rutas de la API pueden estar en español (`/api/cuentas`).
+- Los DTO se definen como `record`; nunca se exponen entidades JPA desde los controladores.
+- El dinero se maneja SIEMPRE con `BigDecimal` (precisión 19, escala 2), nunca con `double`.
+- Se apunta a Java 21+ (el curso pide Java 25): records, `var` cuando el tipo es obvio, `switch` como expresión, pattern matching, `sealed`, text blocks, `Stream.toList()`; evitar `null` (usar `Optional`).
+
+## Convenciones de Spring
+- Capas: `controller` -> `service` -> `repository`. Los controladores solo traducen HTTP; las reglas viven en los servicios.
+- Solo inyección por constructor (`private final`), sin `@Autowired` en campos.
+- Las violaciones de reglas lanzan excepciones propias (jerarquía `sealed` bajo `BusinessException`) que `GlobalExceptionHandler` traduce a `ProblemDetail` (RFC 9457).
+- Códigos HTTP: 200 consulta, 201 creación, 400 datos inválidos, 404 no existe, 409 duplicado, 422 saldo insuficiente.
+- Escrituras con `@Transactional`; las transferencias bloquean las cuentas siempre en el mismo orden (anti-deadlock).
+- Credenciales desde `backend/.env` vía `application.properties`; nunca secretos en el código.
+- Documentar endpoints con springdoc (`@Tag`, `@Operation`).
+
+## Frontend (React + TypeScript)
+- Las llamadas al backend salen solo de `src/services/BankService.ts` (Axios); la URL viene de `VITE_API_URL`.
+- Cada componente: `Componente.tsx` + `Componente.css`.
+- El servidor de desarrollo corre en el puerto 3000 (lo exige el filtro CORS).
+
+## Estructura actual del proyecto
+```
+BancoTransferencias/
+├── .cursor/rules/springboot.mdc
+├── docker-compose.yml            # PostgreSQL 16 (banktdea); puerto del host configurable con DB_PORT (def. 5432)
+├── backend/                      # Spring Boot 4.1, Maven, Java 21
+│   ├── .env / .env.example       # DB_URL, DB_USERNAME, DB_PASSWORD
+│   ├── pom.xml
+│   └── src/main/java/co/edu/tdea/banktransfer/
+│       ├── BankTransferApplication.java
+│       ├── config/{CorsConfig, DataSeeder}.java
+│       ├── controller/{AccountController, TransferController}.java
+│       ├── dto/{AccountRequest, AccountResponse, TransferRequest, TransactionResponse, TransferResponse}.java
+│       ├── entity/{Account, Transaction, TransactionStatus}.java
+│       ├── exception/{BusinessException, AccountNotFoundException, DuplicateAccountException,
+│       │              InsufficientFundsException, InvalidTransferException, GlobalExceptionHandler}.java
+│       ├── repository/{AccountRepository, TransactionRepository}.java
+│       └── service/{AccountService, TransferService, QrCodeService}.java
+├── frontend/                     # React 19 + TypeScript + Vite
+│   └── src/{App.tsx, types/bank.ts, services/BankService.ts,
+│            components/{AccountsPanel, TransferForm, TransactionHistory, QrModal, Toast}.tsx + .css}
+└── docs/                         # Informe, prompts, capturas y scripts
+    ├── capturar.mjs / build_informe.py
+    ├── evidencia_postgres.txt    # salida de psql usada en el informe
+    └── capturas/
+```
+Mantener esta sección actualizada cada vez que se agreguen archivos o paquetes.

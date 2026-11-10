@@ -1,0 +1,22 @@
+$ psql -h localhost -p 5433 -U postgres -d banktdea   # contenedor banktdea-db (PostgreSQL 16)
+            List of relations
+ Schema |     Name     | Type  |  Owner   
+--------+--------------+-------+----------
+ public | accounts     | table | postgres
+ public | transactions | table | postgres
+(2 rows)
+
+ account_number |   owner_name    |  balance   
+----------------+-----------------+------------
+ 1001001001     | Felipe Arango   | 2350000.00
+ 1001001002     | Laura Gómez     | 1350000.00
+ 1001001003     | Carlos Restrepo |  850000.00
+ 1001001004     | Mariana Londoño |  300000.00
+(4 rows)
+
+              reference               | source_account | target_account |   amount   |  status   |               failure_reason                |         created_at         
+--------------------------------------+----------------+----------------+------------+-----------+---------------------------------------------+----------------------------
+ 9aecbed9-e04f-4216-8f82-f3a6435488cb | 1001001001     | 1001001002     |  150000.00 | COMPLETED |                                             | 2026-11-10 15:43:44.025834
+ 9287d7ac-d9b1-4cd9-9439-8ec1227d3c51 | 1001001004     | 1001001001     | 9000000.00 | REJECTED  | Saldo insuficiente en la cuenta 1001001004. | 2026-11-10 15:43:44.789921
+(2 rows)
+
