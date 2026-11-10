@@ -5,6 +5,8 @@ Ejercicio propuesto del *Laboratorio Spring Boot con IA* · Aplicaciones FullSta
 Aplicación full stack para **trasladar dinero entre cuentas de un banco**, con **histórico de transacciones** y, al
 completar cada transferencia, un **código QR** que codifica los datos básicos de la transacción.
 
+![Transferencia exitosa](docs/capturas/02-transferencia-exitosa.png)
+
 ## Funcionalidades
 
 - Listar cuentas con su saldo y abrir cuentas nuevas.
@@ -14,6 +16,15 @@ completar cada transferencia, un **código QR** que codifica los datos básicos 
 - Histórico completo (completadas **y** rechazadas con su motivo), con filtro por cuenta y QR de cada movimiento.
 - Errores del backend mostrados en un *toast*.
 - Swagger UI para probar la API.
+
+## Capturas
+
+| | |
+|---|---|
+| ![Inicio](docs/capturas/01-inicio.png)<br>**01 · Inicio:** cuentas con saldo, formulario e histórico. | ![Transferencia exitosa](docs/capturas/02-transferencia-exitosa.png)<br>**02 · Transferencia exitosa** con su código QR y los datos codificados. |
+| ![Transferencia rechazada](docs/capturas/03-transferencia-rechazada.png)<br>**03 · Transferencia rechazada** por saldo insuficiente (toast). | ![Histórico](docs/capturas/04-historico.png)<br>**04 · Histórico** de transacciones completadas y rechazadas. |
+| ![QR desde el histórico](docs/capturas/05-qr-historico.png)<br>**05 · QR desde el histórico** de un movimiento. | ![Swagger](docs/capturas/06-swagger.png)<br>**06 · Swagger UI** con los endpoints documentados. |
+| ![Vista móvil](docs/capturas/07-vista-movil.png)<br>**07 · Vista móvil** adaptada a pantallas pequeñas. | |
 
 ## Stack tecnológico
 
@@ -120,4 +131,5 @@ BancoTransferencias/
 - Código: este repositorio.
 - Informe: [`docs/Informe_Transferencias_Bancarias.pdf`](docs/Informe_Transferencias_Bancarias.pdf)
 - Prompts utilizados: [`docs/PROMPTS.md`](docs/PROMPTS.md)
+- Evidencia en PostgreSQL (salida de `psql`): [`docs/evidencia_postgres.txt`](docs/evidencia_postgres.txt)
 - Capturas: [`docs/capturas/`](docs/capturas)

@@ -16,7 +16,7 @@ $ psql -h localhost -p 5433 -U postgres -d banktdea   # contenedor banktdea-db (
 
               reference               | source_account | target_account |   amount   |  status   |               failure_reason                |         created_at         
 --------------------------------------+----------------+----------------+------------+-----------+---------------------------------------------+----------------------------
- 9aecbed9-e04f-4216-8f82-f3a6435488cb | 1001001001     | 1001001002     |  150000.00 | COMPLETED |                                             | 2026-11-10 15:43:44.025834
- 9287d7ac-d9b1-4cd9-9439-8ec1227d3c51 | 1001001004     | 1001001001     | 9000000.00 | REJECTED  | Saldo insuficiente en la cuenta 1001001004. | 2026-11-10 15:43:44.789921
+ b44a4816-de69-48b4-b571-f3eb00851462 | 1001001001     | 1001001002     |  150000.00 | COMPLETED |                                             | 2026-11-10 15:47:06.894494
+ 668d0006-0e57-405e-924a-354134bdcb91 | 1001001004     | 1001001001     | 9000000.00 | REJECTED  | Saldo insuficiente en la cuenta 1001001004. | 2026-11-10 15:47:07.653871
 (2 rows)
 

@@ -35,8 +35,10 @@ await page.getByRole('alert').waitFor()
 await shot('03-transferencia-rechazada')
 
 // Histórico y QR de un movimiento
-await page.getByText('Histórico de transacciones').scrollIntoViewIfNeeded()
-await shot('04-historico', { fullPage: true })
+await page.getByRole('alert').waitFor({ state: 'hidden', timeout: 10000 }) // el toast se cierra solo a los 5 s
+const history = page.locator('section.card', { has: page.getByRole('heading', { name: 'Histórico de transacciones' }) })
+await history.scrollIntoViewIfNeeded()
+await history.screenshot({ path: `${out}04-historico.png` })
 await page.getByRole('button', { name: 'Ver QR' }).first().click()
 await page.getByRole('dialog').waitFor()
 await page.waitForTimeout(500)
